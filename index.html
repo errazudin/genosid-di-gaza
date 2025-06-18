@@ -6,58 +6,68 @@
     <title data-key="pageTitle">Genosid di Gaza - Statistik Terkini</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0; /* Light gray background */
+            /* Dark background for Web3 theme */
+            background: linear-gradient(135deg, #1A202C, #2D3748); /* Dark gradient background */
+            color: #E2E8F0; /* Light text color */
         }
         .container {
             max-width: 900px;
         }
         /* Custom styles for the numbers to mimic the image's large font */
         .large-number {
-            font-size: 4rem; /* Adjust as needed for responsiveness */
+            font-size: 4.5rem; /* Slightly larger numbers */
             font-weight: 700;
             line-height: 1;
+            background: linear-gradient(90deg, #EF4444, #DC2626); /* Red gradient for numbers */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #DC2626; /* Fallback for browsers not supporting text-fill-color */
         }
         .medium-number {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             line-height: 1;
+            background: linear-gradient(90deg, #F87171, #EF4444); /* Lighter red gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #EF4444; /* Fallback */
         }
         /* Responsive adjustments for numbers */
         @media (max-width: 768px) {
             .large-number {
-                font-size: 3rem;
+                font-size: 3.5rem;
             }
             .medium-number {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
         @media (max-width: 480px) {
             .large-number {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             .medium-number {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800">
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
 
-    <div class="container bg-white rounded-lg shadow-xl p-8 md:p-12 text-center relative overflow-hidden">
+    <div class="container bg-gray-800 rounded-3xl shadow-2xl p-8 md:p-12 text-center relative overflow-hidden border border-gray-700">
 
         <!-- Logo Section - Top Left -->
-        <div class="absolute top-4 left-4 flex items-center space-x-2">
-            <img src="https://placehold.co/40x40/FF5733/FFFFFF?text=MBB" alt="Makanan Bukan Bom Logo" class="w-10 h-10 rounded-full">
-            <span class="text-sm font-semibold text-gray-700">Makanan Bukan Bom</span>
+        <div class="absolute top-6 left-6 flex items-center space-x-3">
+            <img src="https://placehold.co/48x48/5C2E2E/FFFFFF?text=MBB" alt="Makanan Bukan Bom Logo" class="w-12 h-12 rounded-full border-2 border-red-500 shadow-md">
+            <span class="text-lg font-semibold text-gray-200">Makanan Bukan Bom</span>
         </div>
 
         <!-- Language Selector -->
-        <div class="absolute top-4 right-4">
-            <select id="language-selector" class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+        <div class="absolute top-6 right-6 z-10">
+            <select id="language-selector" class="p-2 rounded-xl border border-gray-600 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 shadow-lg">
                 <option value="ms">Bahasa Malaysia</option>
                 <option value="en">English</option>
                 <option value="zh">中文</option>
@@ -67,66 +77,62 @@
             </select>
         </div>
 
-        <h1 class="text-3xl md:text-4xl font-bold mt-8 mb-4 text-red-700" data-key="title">GENOSID DI GAZA</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mt-16 mb-6 text-red-500 tracking-wider" data-key="title">GENOSID DI GAZA</h1>
 
-        <div class="bg-red-700 text-white py-3 px-6 rounded-lg inline-block mb-6">
-            <h2 class="text-xl md:text-2xl font-bold" data-key="currentStatsTitle">STATISTIK TERKINI</h2>
+        <div class="bg-gradient-to-r from-red-600 to-red-800 text-white py-4 px-8 rounded-2xl inline-block mb-8 shadow-xl">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-wide" data-key="currentStatsTitle">STATISTIK TERKINI</h2>
         </div>
 
-        <p class="text-base md:text-lg mb-8 text-gray-600">
-            <span data-key="currentStatsDescription">Serangan Zionis ke atas semenanjung Gaza dalam tempoh 24 Jam setakat tarikh</span> <span class="font-semibold">17 Jun 2025</span>
+        <p class="text-lg md:text-xl mb-10 text-gray-300">
+            <span data-key="currentStatsDescription">Serangan Zionis ke atas semenanjung Gaza dalam tempoh 24 Jam setakat tarikh</span> <span class="font-bold text-gray-100">17 Jun 2025</span>
         </p>
 
         <!-- Current Stats (24 Hours) -->
-        <div class="flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 md:space-x-8 mb-12 border border-gray-300 rounded-lg p-6 bg-red-50">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16 p-8 bg-gray-700 rounded-2xl shadow-xl border border-gray-600">
             <div class="flex flex-col items-center">
-                <p class="large-number text-red-800">61</p>
-                <p class="text-xl font-semibold text-red-700" data-key="martyrs">SYAHID</p>
+                <p class="large-number">61</p>
+                <p class="text-2xl font-semibold text-red-400" data-key="martyrs">SYAHID</p>
             </div>
-            <div class="h-20 w-0.5 bg-gray-300 md:block hidden"></div> <!-- Separator for desktop -->
-            <div class="w-full h-0.5 bg-gray-300 md:hidden block"></div> <!-- Separator for mobile -->
             <div class="flex flex-col items-center">
-                <p class="large-number text-red-800">397</p>
-                <p class="text-xl font-semibold text-red-700" data-key="injured">CEDERA</p>
+                <p class="large-number">397</p>
+                <p class="text-2xl font-semibold text-red-400" data-key="injured">CEDERA</p>
             </div>
         </div>
 
         <!-- Total Stats (Since 18 MAC 2025) -->
-        <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-700" data-key="totalStatsTitle">
+        <h3 class="text-xl md:text-2xl font-semibold mb-6 text-gray-200" data-key="totalStatsTitle">
             JUMLAH SYUHADA DAN CEDERA SEJAK 18 MAC 2025
         </h3>
-        <div class="flex flex-col md:flex-row justify-around items-center space-y-6 md:space-y-0 md:space-x-8 mb-12 border-2 border-dashed border-red-400 rounded-xl p-6 bg-red-100">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16 p-8 bg-gray-700 rounded-2xl shadow-xl border border-red-500 border-dashed">
             <div class="flex flex-col items-center">
-                <p class="medium-number text-red-900">5,194</p>
-                <p class="text-lg font-semibold text-red-800" data-key="martyrs">SYAHID</p>
+                <p class="medium-number">5,194</p>
+                <p class="text-xl font-semibold text-red-300" data-key="martyrs">SYAHID</p>
             </div>
-            <div class="h-16 w-0.5 bg-red-300 md:block hidden"></div> <!-- Separator for desktop -->
-            <div class="w-full h-0.5 bg-red-300 md:hidden block"></div> <!-- Separator for mobile -->
             <div class="flex flex-col items-center">
-                <p class="medium-number text-red-900">17,279</p>
-                <p class="text-lg font-semibold text-red-800" data-key="injured">CEDERA</p>
+                <p class="medium-number">17,279</p>
+                <p class="text-xl font-semibold text-red-300" data-key="injured">CEDERA</p>
             </div>
         </div>
 
         <!-- Cumulative Stats (Since 07 Oktober 2023) -->
-        <div class="bg-gray-200 rounded-lg p-6 mb-8 shadow-inner">
-            <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-8">
+        <div class="bg-gray-700 rounded-2xl p-8 mb-8 shadow-inner border border-gray-600">
+            <div class="flex flex-col md:flex-row justify-around items-center space-y-6 md:space-y-0 md:space-x-8">
                 <div class="flex flex-col items-center">
-                    <p class="text-3xl font-bold text-gray-900">55,493</p>
-                    <p class="text-sm text-gray-600" data-key="martyrs">SYAHID</p>
+                    <p class="text-4xl font-bold text-gray-50">55,493</p>
+                    <p class="text-base text-gray-300" data-key="martyrs">SYAHID</p>
+                </div>
+                <div class="flex flex-col items-center flex-1 mx-4">
+                    <p class="text-2xl font-semibold text-gray-100" data-key="cumulativeStats">Statistik Terkumpul</p>
+                    <p class="text-sm text-gray-400" data-key="sinceDate">Sejak 07 Oktober 2023</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <p class="text-xl font-semibold text-gray-700" data-key="cumulativeStats">Statistik Terkumpul</p>
-                    <p class="text-xs text-gray-500" data-key="sinceDate">Sejak 07 Oktober 2023</p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <p class="text-3xl font-bold text-gray-900">129,320</p>
-                    <p class="text-sm text-gray-600" data-key="injured">CEDERA</p>
+                    <p class="text-4xl font-bold text-gray-50">129,320</p>
+                    <p class="text-base text-gray-300" data-key="injured">CEDERA</p>
                 </div>
             </div>
         </div>
 
-        <p class="text-xs text-gray-500 mt-4" data-key="source">
+        <p class="text-sm text-gray-400 mt-6" data-key="source">
             Sumber : Kementerian Kesihatan Gaza
         </p>
 
@@ -215,9 +221,15 @@
             if (lang === 'ar') {
                 document.body.style.direction = 'rtl';
                 document.body.style.textAlign = 'right';
+                // Adjust text alignment for specific elements if needed for RTL
+                document.querySelectorAll('.text-left').forEach(el => el.classList.remove('text-left'));
+                document.querySelectorAll('.text-right').forEach(el => el.classList.add('text-right'));
             } else {
                 document.body.style.direction = 'ltr';
                 document.body.style.textAlign = 'left';
+                // Reset text alignment for LTR
+                document.querySelectorAll('.text-right').forEach(el => el.classList.remove('text-right'));
+                document.querySelectorAll('.text-left').forEach(el => el.classList.add('text-left'));
             }
 
             // Update all elements with a data-key attribute
