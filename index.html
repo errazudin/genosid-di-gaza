@@ -53,11 +53,22 @@
                 font-size: 1.8rem;
             }
         }
+        .flag-icon {
+            font-size: 1.5em; /* Adjust size of emoji flags */
+            vertical-align: middle;
+            margin: 0 0.2em;
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
 
     <div class="container bg-gray-800 rounded-3xl shadow-2xl p-8 md:p-12 text-center relative overflow-hidden border border-gray-700">
+
+        <!-- Logo Section - Top Left -->
+        <div class="absolute top-6 left-6 flex items-center space-x-3">
+            <img src="https://placehold.co/48x48/5C2E2E/FFFFFF?text=CGM" alt="Cinta Gaza Malaysia Logo" class="w-12 h-12 rounded-full border-2 border-red-500 shadow-md">
+            <span class="text-lg font-semibold text-gray-200">Cinta Gaza Malaysia</span>
+        </div>
 
         <!-- Language Selector -->
         <div class="absolute top-6 right-6 z-10">
@@ -78,17 +89,17 @@
         </div>
 
         <p class="text-lg md:text-xl mb-10 text-gray-300">
-            <span data-key="currentStatsDescription">Serangan Zionis ke atas semenanjung Gaza dalam tempoh 24 Jam setakat tarikh</span> <span class="font-bold text-gray-100">17 Jun 2025</span>
+            <span data-key="currentStatsDescription">Serangan Zionis ke atas semenanjung Gaza dalam tempoh 24 Jam setakat tarikh</span> <span class="font-bold text-gray-100" id="latest-stats-date"></span>
         </p>
 
         <!-- Current Stats (24 Hours) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16 p-8 bg-gray-700 rounded-2xl shadow-xl border border-gray-600">
             <div class="flex flex-col items-center">
-                <p class="large-number">61</p>
+                <p class="large-number" id="latest-martyrs"></p>
                 <p class="text-2xl font-semibold text-red-400" data-key="martyrs">SYAHID</p>
             </div>
             <div class="flex flex-col items-center">
-                <p class="large-number">397</p>
+                <p class="large-number" id="latest-injured"></p>
                 <p class="text-2xl font-semibold text-red-400" data-key="injured">CEDERA</p>
             </div>
         </div>
@@ -99,11 +110,11 @@
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16 p-8 bg-gray-700 rounded-2xl shadow-xl border border-red-500 border-dashed">
             <div class="flex flex-col items-center">
-                <p class="medium-number">5,194</p>
+                <p class="medium-number" id="total-martyrs"></p>
                 <p class="text-xl font-semibold text-red-300" data-key="martyrs">SYAHID</p>
             </div>
             <div class="flex flex-col items-center">
-                <p class="medium-number">17,279</p>
+                <p class="medium-number" id="total-injured"></p>
                 <p class="text-xl font-semibold text-red-300" data-key="injured">CEDERA</p>
             </div>
         </div>
@@ -112,7 +123,7 @@
         <div class="bg-gray-700 rounded-2xl p-8 mb-8 shadow-inner border border-gray-600">
             <div class="flex flex-col md:flex-row justify-around items-center space-y-6 md:space-y-0 md:space-x-8">
                 <div class="flex flex-col items-center">
-                    <p class="text-4xl font-bold text-gray-50">55,493</p>
+                    <p class="text-4xl font-bold text-gray-50" id="cumulative-martyrs"></p>
                     <p class="text-base text-gray-300" data-key="martyrs">SYAHID</p>
                 </div>
                 <div class="flex flex-col items-center flex-1 mx-4">
@@ -120,16 +131,17 @@
                     <p class="text-sm text-gray-400" data-key="sinceDate">Sejak 07 Oktober 2023</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <p class="text-4xl font-bold text-gray-50">129,320</p>
+                    <p class="text-4xl font-bold text-gray-50" id="cumulative-injured"></p>
                     <p class="text-base text-gray-300" data-key="injured">CEDERA</p>
                 </div>
             </div>
         </div>
 
         <p class="text-sm text-gray-400 mt-6" data-key="source">
-            Sumber : Cinta Gaza Malaysia dan Kementerian Kesihatan Gaza
+            Sumber : Kementerian Kesihatan Gaza
         </p>
 
+        <!-- New Footer Line -->
         <p class="text-sm text-gray-400 mt-4 flex items-center justify-center">
             Made With Extra <span class="text-red-500 mx-1 text-lg">❤️</span> In Jeram <span class="flag-icon">🇲🇾</span> <span class="flag-icon">🇵🇸</span>
         </p>
@@ -212,6 +224,24 @@
             }
         };
 
+        // Embedded data (replacing data.json fetch)
+        const statsData = {
+            "date_latest_stats": "18 Jun 2025",
+            "latest_stats": {
+                "martyrs": "144",
+                "injured": "560"
+            },
+            "total_since_18_mar_2025": {
+                "martyrs": "5,334",
+                "injured": "17,839"
+            },
+            "cumulative_since_07_oct_2023": {
+                "martyrs": "55,637",
+                "injured": "129,880"
+            }
+        };
+
+
         const languageSelector = document.getElementById('language-selector');
 
         function changeLanguage(lang) {
@@ -242,21 +272,37 @@
             document.querySelector('title').textContent = translations[lang].pageTitle;
         }
 
+        // Function to display data from the embedded statsData object
+        function displayData() {
+            // Update latest stats date
+            document.getElementById('latest-stats-date').textContent = statsData.date_latest_stats;
+
+            // Update latest stats numbers
+            document.getElementById('latest-martyrs').textContent = statsData.latest_stats.martyrs;
+            document.getElementById('latest-injured').textContent = statsData.latest_stats.injured;
+
+            // Update total stats numbers
+            document.getElementById('total-martyrs').textContent = statsData.total_since_18_mar_2025.martyrs;
+            document.getElementById('total-injured').textContent = statsData.total_since_18_mar_2025.injured;
+
+            // Update cumulative stats numbers
+            document.getElementById('cumulative-martyrs').textContent = statsData.cumulative_since_07_oct_2023.martyrs;
+            document.getElementById('cumulative-injured').textContent = statsData.cumulative_since_07_oct_2023.injured;
+
+            // After data is loaded, apply the language
+            const savedLang = localStorage.getItem('preferredLang') || 'ms';
+            languageSelector.value = savedLang;
+            changeLanguage(savedLang);
+        }
+
         // Event listener for language selector change
         languageSelector.addEventListener('change', (event) => {
+            // No need to re-fetch data, just change language of already loaded content
             changeLanguage(event.target.value);
         });
 
-        // Set default language on page load
-        // Check if there's a preferred language saved, otherwise default to Bahasa Malaysia ('ms')
-        const savedLang = localStorage.getItem('preferredLang') || 'ms';
-        languageSelector.value = savedLang;
-        changeLanguage(savedLang);
-
-        // Save preferred language when selection changes
-        languageSelector.addEventListener('change', (event) => {
-            localStorage.setItem('preferredLang', event.target.value);
-        });
+        // Display data when the page loads
+        document.addEventListener('DOMContentLoaded', displayData);
     </script>
 </body>
 </html>
