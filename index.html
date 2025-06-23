@@ -10,33 +10,30 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Dark background for Web3 theme */
-            background: linear-gradient(135deg, #1A202C, #2D3748); /* Dark gradient background */
-            color: #E2E8F0; /* Light text color */
+            background: linear-gradient(135deg, #1A202C, #2D3748);
+            color: #E2E8F0;
         }
         .container {
             max-width: 900px;
         }
-        /* Custom styles for the numbers to mimic the image's large font */
         .large-number {
-            font-size: 4.5rem; /* Slightly larger numbers */
+            font-size: 4.5rem;
             font-weight: 700;
             line-height: 1;
-            background: linear-gradient(90deg, #EF4444, #DC2626); /* Red gradient for numbers */
+            background: linear-gradient(90deg, #EF4444, #DC2626);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #DC2626; /* Fallback for browsers not supporting text-fill-color */
+            color: #DC2626;
         }
         .medium-number {
             font-size: 3.5rem;
             font-weight: 700;
             line-height: 1;
-            background: linear-gradient(90deg, #F87171, #EF4444); /* Lighter red gradient */
+            background: linear-gradient(90deg, #F87171, #EF4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #EF4444; /* Fallback */
+            color: #EF4444;
         }
-        /* Responsive adjustments for numbers */
         @media (max-width: 768px) {
             .large-number {
                 font-size: 3.5rem;
@@ -54,7 +51,7 @@
             }
         }
         .flag-icon {
-            font-size: 1.5em; /* Adjust size of emoji flags */
+            font-size: 1.5em;
             vertical-align: middle;
             margin: 0 0.2em;
         }
@@ -224,23 +221,13 @@
             }
         };
 
-        // Embedded data (replacing data.json fetch)
+        // Embedded data with current daily entry (updated to 22 Jun 2025 data)
         const statsData = {
-            "date_latest_stats": "18 Jun 2025",
-            "latest_stats": {
-                "martyrs": "144",
-                "injured": "560"
-            },
-            "total_since_18_mar_2025": {
-                "martyrs": "5,334",
-                "injured": "17,839"
-            },
-            "cumulative_since_07_oct_2023": {
-                "martyrs": "55,637",
-                "injured": "129,880"
-            }
+            "date_display": "22 Jun 2025",
+            "latest_stats": { "martyrs": "51", "injured": "104" },
+            "total_since_18_mar_2025": { "martyrs": "5,647", "injured": "19,201" },
+            "cumulative_since_07_oct_2023": { "martyrs": "55,959", "injured": "131,242" }
         };
-
 
         const languageSelector = document.getElementById('language-selector');
 
@@ -249,33 +236,28 @@
             if (lang === 'ar') {
                 document.body.style.direction = 'rtl';
                 document.body.style.textAlign = 'right';
-                // Adjust text alignment for specific elements if needed for RTL
                 document.querySelectorAll('.text-left').forEach(el => el.classList.remove('text-left'));
                 document.querySelectorAll('.text-right').forEach(el => el.classList.add('text-right'));
             } else {
                 document.body.style.direction = 'ltr';
                 document.body.style.textAlign = 'left';
-                // Reset text alignment for LTR
                 document.querySelectorAll('.text-right').forEach(el => el.classList.remove('text-right'));
                 document.querySelectorAll('.text-left').forEach(el => el.classList.add('text-left'));
             }
 
-            // Update all elements with a data-key attribute
             document.querySelectorAll('[data-key]').forEach(element => {
                 const key = element.getAttribute('data-key');
                 if (translations[lang] && translations[lang][key]) {
                     element.textContent = translations[lang][key];
                 }
             });
-
-            // Special handling for the title tag
             document.querySelector('title').textContent = translations[lang].pageTitle;
         }
 
-        // Function to display data from the embedded statsData object
-        function displayData() {
+        // Function to display data from the embedded statsData object (simplified)
+        function updateStatsDisplay() {
             // Update latest stats date
-            document.getElementById('latest-stats-date').textContent = statsData.date_latest_stats;
+            document.getElementById('latest-stats-date').textContent = statsData.date_display;
 
             // Update latest stats numbers
             document.getElementById('latest-martyrs').textContent = statsData.latest_stats.martyrs;
@@ -289,7 +271,7 @@
             document.getElementById('cumulative-martyrs').textContent = statsData.cumulative_since_07_oct_2023.martyrs;
             document.getElementById('cumulative-injured').textContent = statsData.cumulative_since_07_oct_2023.injured;
 
-            // After data is loaded, apply the language
+            // Apply the language after data is loaded
             const savedLang = localStorage.getItem('preferredLang') || 'ms';
             languageSelector.value = savedLang;
             changeLanguage(savedLang);
@@ -297,12 +279,12 @@
 
         // Event listener for language selector change
         languageSelector.addEventListener('change', (event) => {
-            // No need to re-fetch data, just change language of already loaded content
+            // Only change language, numbers are static now until manually updated
             changeLanguage(event.target.value);
         });
 
         // Display data when the page loads
-        document.addEventListener('DOMContentLoaded', displayData);
+        document.addEventListener('DOMContentLoaded', updateStatsDisplay);
     </script>
 </body>
 </html>
